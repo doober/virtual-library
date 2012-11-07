@@ -1,0 +1,7 @@
+extends layout
+block content
+	h1 Resources
+	ul
+		each link in links
+			li
+				a(href="#{link.url}") #{link.label}

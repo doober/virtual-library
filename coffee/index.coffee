@@ -1,6 +1,9 @@
 express = require 'express'
-Handlebars = require 'handlebars'
+assets = require 'connect-assets'
+stylus = require 'stylus'
 app = express()
+app.use assets()
+app.set 'view engine', 'jade'
 
 homepage = ( req, res ) ->
 	links = [
@@ -14,9 +17,8 @@ homepage = ( req, res ) ->
 		{ label: 'Do Project', url: 'https://www.do.com/213079/projects/392489' },
 		{ label: 'NodeJitsu Project', url: 'http://dbernar1.virtual-library.jit.su/' }
 	]
-	source = '<h1>Resources</h1><ul>{{#each links}}<li><a target="_blank" href="{{this.url}}">{{this.label}}</a></li>{{/each}}</ul>'
-	template = Handlebars.compile source
-	res.send template links: links
+	res.render 'index', links: links
+
 
 app.get '/', homepage
 

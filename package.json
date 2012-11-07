@@ -1,12 +1,15 @@
 {
   "name": "virtual-library",
   "description": "A Virtual Library. Real books.",
-  "version": "0.0.1-21",
+  "version": "0.0.1-22",
   "private": true,
   "dependencies": {
     "express": "3.x",
     "coffee-script": "1.4.x",
-    "handlebars": ">=1.0.7"
+    "handlebars": ">=1.0.7",
+    "jade": ">=0.27.7",
+    "connect-assets": ">=2.3.3",
+    "stylus": ">=0.30.1"
   },
   "subdomain": "dbernar1.virtual-library",
   "scripts": {
