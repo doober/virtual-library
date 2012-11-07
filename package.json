@@ -1,9 +1,16 @@
 {
   "name": "virtual-library",
   "description": "A Virtual Library. Real books.",
-  "version": "0.0.1",
+  "version": "0.0.1-1",
   "private": true,
   "dependencies": {
     "express": "3.x"
+  },
+  "subdomain": "dbernar1.virtual-library",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "engines": {
+    "node": "0.8.x"
   }
 }
