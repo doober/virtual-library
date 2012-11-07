@@ -15,10 +15,12 @@ homepage = ( req, res ) ->
 		{ label: 'Vim CoffeeScript Syntax Highlighting', url: 'https://github.com/kchmck/vim-coffee-script' },
 		{ label: 'GitHub Project', url: 'https://github.com/doober/virtual-library' },
 		{ label: 'Do Project', url: 'https://www.do.com/213079/projects/392489' },
-		{ label: 'NodeJitsu Project', url: 'http://dbernar1.virtual-library.jit.su/' }
+		{ label: 'NodeJitsu Project', url: 'http://dbernar1.virtual-library.jit.su/' },
+		{ label: 'Jasmine', url: 'http://pivotal.github.com/jasmine/' },
+		{ label: 'Example Express w/ CoffeeScript Project', url: 'https://github.com/twilson63/express-coffee' }
+		{ label: 'In-browser Wireframes', url: 'http://wireframe.cc/' }
 	]
 	res.render 'index', links: links
-
 
 app.get '/', homepage
 
