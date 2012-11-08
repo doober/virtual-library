@@ -23,6 +23,7 @@ homepage = ( req, res ) ->
 		{ label: 'CDNjs', url: 'http://cdnjs.com/' }
 		{ label: 'connect-assets', url: 'https://github.com/TrevorBurnham/connect-assets' }
 		{ label: 'ZURB Foundation', url: 'http://foundation.zurb.com/' }
+		{ label: 'Stylus Docs', url: 'http://learnboost.github.com/stylus/' }
 	]
 	res.render 'index', links: links
 
