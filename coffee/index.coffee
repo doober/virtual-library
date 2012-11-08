@@ -22,6 +22,7 @@ homepage = ( req, res ) ->
 		{ label: 'Jade', url: 'https://github.com/visionmedia/jade' }
 		{ label: 'CDNjs', url: 'http://cdnjs.com/' }
 		{ label: 'connect-assets', url: 'https://github.com/TrevorBurnham/connect-assets' }
+		{ label: 'ZURB Foundation', url: 'http://foundation.zurb.com/' }
 	]
 	res.render 'index', links: links
 
