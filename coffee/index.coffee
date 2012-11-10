@@ -1,32 +1,45 @@
 express = require 'express'
 assets = require 'connect-assets'
 stylus = require 'stylus'
+mongoose = require 'mongoose'
+
 app = express()
 app.use assets()
+app.use( express.bodyParser() )
+app.use(express.methodOverride())
 app.set 'view engine', 'jade'
 
-homepage = ( req, res ) ->
-	links = [
-		{ label: 'Handlebars', url: 'http://handlebarsjs.com/' }
-		{ label: 'CoffeeScript', url: 'http://coffeescript.org/' }
-		{ label: 'Passport', url: 'http://passportjs.org/' }
-		{ label: 'NodeJitsu Handbook', url: 'https://github.com/nodejitsu/handbook/' }
-		{ label: 'The Little Book on CoffeeScript', url: 'http://arcturo.github.com/library/coffeescript/index.html' }
-		{ label: 'Vim CoffeeScript Syntax Highlighting', url: 'https://github.com/kchmck/vim-coffee-script' }
-		{ label: 'GitHub Project', url: 'https://github.com/doober/virtual-library' }
-		{ label: 'Do Project', url: 'https://www.do.com/213079/projects/392489' }
-		{ label: 'NodeJitsu Project', url: 'http://dbernar1.virtual-library.jit.su/' }
-		{ label: 'Jasmine', url: 'http://pivotal.github.com/jasmine/' }
-		{ label: 'Example Express w/ CoffeeScript Project', url: 'https://github.com/twilson63/express-coffee' }
-		{ label: 'In-browser Wireframes', url: 'http://wireframe.cc/' }
-		{ label: 'Jade', url: 'https://github.com/visionmedia/jade' }
-		{ label: 'CDNjs', url: 'http://cdnjs.com/' }
-		{ label: 'connect-assets', url: 'https://github.com/TrevorBurnham/connect-assets' }
-		{ label: 'ZURB Foundation', url: 'http://foundation.zurb.com/' }
-		{ label: 'Stylus Docs', url: 'http://learnboost.github.com/stylus/' }
-	]
-	res.render 'index', links: links
+mongoose.connect 'mongodb://localhost/virtual-lib'
 
-app.get '/', homepage
+Book = new mongoose.Schema
+	title:
+		type: String
+		required: true
+
+BookModel = mongoose.model 'Book', Book
+
+getAllBooks = ->
+	BookModel.find ( err, books ) ->
+		return if err then console.log err else res.send books
+
+app.get '/', ( req, res ) ->
+	res.render 'index'
+
+app.get '/api/books', ( req, res ) ->
+	return BookModel.find ( err, books ) ->
+		return if err then console.log err else res.send books
+
+app.post '/api/books', ( req, res ) ->
+	req.accepts( 'json' )
+	console.log "POST: "
+	console.log req.body
+
+	book = new BookModel
+		title: req.body.title
+
+	book.save (err) ->
+		return if err then console.log err else console.log "created"
+
+	return res.send book
 
 app.listen 80

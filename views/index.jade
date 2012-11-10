@@ -1,9 +1,8 @@
 extends layout
 block content
 	#main
-	.links
-		h1 Resources
-		ul
-			each link in links
-				li
-					a(href="#{link.url}", target="_blank") #{link.label}
+		input(type="text", placeholder="title", id="title", name="title")
+		input(type="submit", class="button", id="create-book")
+
+	each book in books
+		#{book.title}
