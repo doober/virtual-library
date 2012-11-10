@@ -29,10 +29,21 @@ $ ->
 			if( app.Books.create( this.newBookData() ) )
 				this.clearForm()
 		newBookData: ->
-			return
-				title: this.title.val()
+			title: this.title.val()
 
 		clearForm: ->
 			this.title.val( '' )
 	
 	new app.AppView
+
+
+	$('#browserid' ).click ->
+		navigator.id.getVerifiedEmail (assertion) ->
+			if assertion
+				$( "input" ).val assertion
+				$( "form" ).submit()
+			else
+				location.reload()
+
+
+				

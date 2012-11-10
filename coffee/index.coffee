@@ -3,7 +3,7 @@ assets = require 'connect-assets'
 stylus = require 'stylus'
 mongoose = require 'mongoose'
 
-app = express()
+exports.app = app = express()
 app.use assets()
 app.use( express.bodyParser() )
 app.use(express.methodOverride())
