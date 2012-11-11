@@ -2,7 +2,9 @@ app = app || {}
 
 app.Book = Backbone.Model.extend
 	defaults:
-		title: ''
+		title: '',
+		author: '',
+		wantIt: 1
 	validate: ->
 		console.log( 'validate' )
 		if ( '' == title )
@@ -17,24 +19,62 @@ BookList = Backbone.Collection.extend
 
 app.Books = new BookList
 
+
+app.BookView = Backbone.View.extend
+	template: _.template '<li><%= title %>, by <%= author %></li>'
+	initialize: ->
+		this.render()
+	render: ->
+		this.$el.html( this.template this.model.toJSON() )
+		return this
+
+
+
 app.AppView = Backbone.View.extend
 	el: '#main'
 	events:
 		'click #add-book': 'showAddBookForm',
 		'click .close': 'hideAddBookForm',
 		'click #create-book': 'createBook'
+
 	initialize: ->
-		this.title = $ '#title'
+		app.Books.fetch()
+
+		app.Books.on( 'add', this.addOne, this )
+		app.Books.on( 'reset', this.addAll, this )
+
+		this.title = $( '#title' )
+		this.author = $( '#author' )
+		this.wantIt = $( '[name="own_it"]' )
+		this.render()
+
+	render: ->
+		this.addAll()
+		return this
+
+	addOne: ( book ) ->
+		view = new app.BookView { model: book }
+		$('#book-list').prepend( view.render().el )
+
+	addAll: ->
+			this.$('#book-list').html ''
+			app.Books.each this.addOne, this
+
 	showAddBookForm: ->
 		$( '.add-book-panel' ).css( { opacity:1, width:'150%' } )
+
 	hideAddBookForm: ->
 		$( '.add-book-panel' ).css( { opacity:0, width:'0' } )
+
 	createBook: ( e ) ->
 		if ( app.Books.create( this.newBookData() ) )
 			this.clearForm()
 			this.hideAddBookForm()
+
 	newBookData: ->
 		title: this.title.val()
+		author: this.author.val()
+		wantIt: this.wantIt.val()
 
 	clearForm: ->
 		this.title.val( '' )

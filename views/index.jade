@@ -8,15 +8,16 @@ block content
 				input(type="text", placeholder="Metamorphesis", id="title", name="title")
 				label(for="author") Author
 				input(type="text", placeholder="Franz Kafka", id="author", name="author")
-				label(for="isbn") ISBN
-				input(type="text", placeholder="1234567", id="isbn", name="isbn")
-				label(for="tags") Tags
-				input(type="text", placeholder="classics, literature, existentialism", id="tags", name="tags")
+				//label(for="isbn") ISBN
+				//input(type="text", placeholder="1234567", id="isbn", name="isbn")
+				//label(for="tags") Tags
+				//input(type="text", placeholder="classics, literature, existentialism", id="tags", name="tags")
 				label(for="own-it")
-					input#own-it(type="radio", name="own_it", value="1")
+					input#own-it(type="radio", name="own_it", value="1", checked="checked")
 					|&nbsp;I have it
-				label(for="own-it")
+				label(for="want-it")
 					input#want-it(type="radio", name="own_it", value="0")
 					|&nbsp;I want it
 				input.right(type="submit", class="button", id="create-book")
 			button#add-book(class="button") Add book
+			ul#book-list
