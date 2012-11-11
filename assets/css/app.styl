@@ -29,7 +29,7 @@ header
 #signin
 	position: absolute
 	top:26px
-	right:0
+	right:26px
 	img
 		margin: 10px 10px 0 0
 		cursor: pointer
@@ -38,3 +38,47 @@ header
 #footer
 	background-color: #555
 	color: #fff
+
+//UTILS
+.close
+	border:1px solid transparent
+	display:block
+	width:19px
+	height:19px
+	line-height:16px
+	text-align:center
+	-webkit-border-radius: 10px
+	-moz-border-radius: 10px
+	border-radius: 10px
+	position:absolute
+	top:5px
+	right:5px
+	cursor:pointer
+	&:hover, &:focus
+		background:#e0e0e0
+		border:1px solid #999
+
+
+
+//BOOKS
+#add-book
+	width:100%
+.add-book-panel
+	opacity:0
+	position:absolute
+	width:0
+	background:#fff
+	border:1px solid #e0e0e0
+	padding:20px
+	left:100%
+	top:-1px
+	transition: all 0.2s
+	-moz-transition: all 0.2s
+	-webkit-transition: all 0.2s
+	-o-transition: all 0.2s
+	-moz-box-shadow: 0px 0px 14px rgba(0,0,0,0.2)
+	-webkit-box-shadow: 0px 0px 14px rgba(0,0,0,0.2)
+	box-shadow: 0px 0px 14px rgba(0,0,0,0.2)
+
+
+

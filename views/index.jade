@@ -1,5 +1,22 @@
 extends layout
 block content
-	#main
-		input(type="text", placeholder="title", id="title", name="title")
-		input(type="submit", class="button", id="create-book")
+	#main.row
+		.four.columns.panel
+			.add-book-panel
+				i.close &times;
+				label(for="title") Title
+				input(type="text", placeholder="Metamorphesis", id="title", name="title")
+				label(for="author") Author
+				input(type="text", placeholder="Franz Kafka", id="author", name="author")
+				label(for="isbn") ISBN
+				input(type="text", placeholder="1234567", id="isbn", name="isbn")
+				label(for="tags") Tags
+				input(type="text", placeholder="classics, literature, existentialism", id="tags", name="tags")
+				label(for="own-it")
+					input#own-it(type="radio", name="own_it", value="1")
+					|&nbsp;I have it
+				label(for="own-it")
+					input#want-it(type="radio", name="own_it", value="0")
+					|&nbsp;I want it
+				input.right(type="submit", class="button", id="create-book")
+			button#add-book(class="button") Add book
