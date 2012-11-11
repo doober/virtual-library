@@ -18,10 +18,12 @@ app.use app.router
 
 mongoose.connect 'mongodb://localhost/virtual-lib'
 
-
 # MODELS
 Book = new mongoose.Schema
 	title:
+		type: String
+		required: true
+	user_id:
 		type: String
 		required: true
 BookModel = mongoose.model 'Book', Book
@@ -65,9 +67,7 @@ passport.use new BrowserIDStrategy
 		return
 
 app.post '/auth/browserid',
-	passport.authenticate 'browserid', { failureRedirect: '/login' }
-	( req, res ) ->
-		res.redirect '/'
+	passport.authenticate 'browserid', { failureRedirect: '/login', successRedirect: '/' }
 
 getAllBooks = ->
 	BookModel.find ( err, books ) ->
@@ -76,17 +76,23 @@ getAllBooks = ->
 app.get '/', ( req, res ) ->
 	res.render 'index'
 
-app.get '/api/books', ( req, res ) ->
+ensureAuthenticated = ( req, res, next ) ->
+	if req.isAuthenticated()
+		next()
+	else
+		res.redirect '/'
+
+app.get '/api/books', ensureAuthenticated, ( req, res ) ->
 	return BookModel.find ( err, books ) ->
 		return if err then console.log err else res.send books
 
-app.post '/api/books', ( req, res ) ->
-	req.accepts( 'json' )
+app.post '/api/books', ensureAuthenticated, ( req, res ) ->
 	console.log "POST: "
 	console.log req.body
 
 	book = new BookModel
 		title: req.body.title
+		user_id: req.user._id
 
 	book.save (err) ->
 		return if err then console.log err else console.log "created book"
