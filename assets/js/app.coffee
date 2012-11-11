@@ -34,6 +34,7 @@ app.AppView = Backbone.View.extend
 	el: '#main'
 	events:
 		'click #add-book': 'showAddBookForm',
+		'click #add-book.active': 'hideAddBookForm',
 		'click .close': 'hideAddBookForm',
 		'click #create-book': 'createBook'
 
@@ -60,11 +61,13 @@ app.AppView = Backbone.View.extend
 			this.$('#book-list').html ''
 			app.Books.each this.addOne, this
 
-	showAddBookForm: ->
-		$( '.add-book-panel' ).css( { opacity:1, width:'150%' } )
+	showAddBookForm: ( e ) ->
+		$( e.target ).text( 'cancel' ).addClass 'active'
+		$( '.add-book-panel' ).addClass 'showing'
 
 	hideAddBookForm: ->
-		$( '.add-book-panel' ).css( { opacity:0, width:'0' } )
+		$( '#add-book.active' ).text( 'Add book' ).removeClass 'active'
+		$( '.add-book-panel' ).removeClass 'showing'
 
 	createBook: ( e ) ->
 		if ( app.Books.create( this.newBookData() ) )
