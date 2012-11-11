@@ -7,6 +7,7 @@ BrowserIDStrategy = require( 'passport-browserid' ).Strategy
 
 exports.app = app = express()
 app.use assets()
+app.use( express.static( __dirname + '/../public' ) )
 app.use express.cookieParser()
 app.use express.bodyParser()
 app.use express.methodOverride()
@@ -74,7 +75,10 @@ getAllBooks = ->
 		return if err then console.log err else res.send books
 
 app.get '/', ( req, res ) ->
-	res.render 'index'
+	if req.isAuthenticated()
+		res.render 'index'
+	else
+		res.render 'home'
 
 ensureAuthenticated = ( req, res, next ) ->
 	if req.isAuthenticated()
